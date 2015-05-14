@@ -1,39 +1,35 @@
 (ns aart.flower_of_life
   (:require [quil.core :as q]))
 
-(defn radians [cnt ccount]
-  (* cnt (/ (* 2 (Math/PI)) ccount)))
+(defn radians [i circle_count]
+  (* i (/ (* 2 (Math/PI)) circle_count)))
 
-(defn circle [cnt ccount radius origin ]
+(defn circle [i circle_count radius xorigin yorigin]
    ;formula for graphing a circle
    ;x = cx + (r * cos(a)) and y = cy + (r * sin(a))
-  (def xpos (+ (first origin) (* radius (Math/cos(radians cnt ccount)))))
-  (def ypos (+ (last origin) (* radius (Math/sin(radians cnt ccount)))))
-  ;calc the x axis
+  (def xpos (+ xorigin (* radius (Math/cos(radians i circle_count)))))
+  (def ypos (+ yorigin (* radius (Math/sin(radians i circle_count)))))
 
   (q/no-fill)
   (q/ellipse xpos ypos (* 2 radius) (* 2 radius))
-
-  nil
   )
 
 (defn draw []
   (let [radius 50
-        ccount 6
+        circle_count 6
         xpos (/ (q/width) 2)
-        ypos (/ (q/width) 2)
-        origin [xpos ypos]]
+        ypos (/ (q/width) 2)]
 
     ;the first circle
     (q/no-fill)
     (q/ellipse xpos ypos (* 2 radius) (* 2 radius))
 
-    (loop [cnt 6 foo nil]
-      (if (zero? cnt) nil
-      (recur (dec cnt) (circle cnt ccount radius origin))
+    (loop [i circle_count foo nil]
+      (if (zero? i) nil
+      (recur (dec i) (circle i circle_count radius xpos ypos))
     )))
 
-  (q/save "yourmomdoesitall.png")
+  ;(q/save "yourmom.png")
 
   (q/no-loop))
 

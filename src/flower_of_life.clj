@@ -7,6 +7,8 @@
 (defn circle [i circle_count radius xorigin yorigin]
    ;formula for graphing a circle
    ;x = cx + (r * cos(a)) and y = cy + (r * sin(a))
+
+  ;define x,y offset the x and y by the radians divided by the count
   (def xpos (+ xorigin (* radius (Math/cos(radians i circle_count)))))
   (def ypos (+ yorigin (* radius (Math/sin(radians i circle_count)))))
 
@@ -26,6 +28,8 @@
 
     (loop [i circle_count foo nil]
       (if (zero? i) nil
+
+      ;pass the center of the circle: x,y
       (recur (dec i) (circle i circle_count radius xpos ypos))
     )))
 
